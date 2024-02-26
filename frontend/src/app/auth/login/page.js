@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
+import axios from '@/app/lib/axios';
 const Login = () => {
+
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+
+
+  const handleLogin = async (event)=>{
+    event.preventDefault();
+    try{
+      await axios.post('/login',{email,password});
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   return (
     <div className='flex w-full h-full flex-col items-center justify-center  '>
     <h1 className='text-3xl m-5 font-extrabold'>Welcome</h1>

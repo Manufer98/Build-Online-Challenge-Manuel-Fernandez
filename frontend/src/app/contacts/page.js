@@ -11,7 +11,7 @@ const Contacts =  () => {
 
     const getData = async ()  =>{
         console.log('dsa')
-        const contactsApi= await fetch('http://127.0.0.1:8000/api/contacts')
+        const contactsApi= await fetch('http://127.0.0.1:8000/api/contacts/1')
         .then(res => res.json())
         .then(data => {
           console.log('holi',data);
@@ -23,7 +23,7 @@ const Contacts =  () => {
     //console.log(contacts)
 
   return (
-    <div>{contactsAp.map(i=><div key={i.id}>{i.name}<br/></div>)}</div>
+    <div>holi{contactsAp.map(i=><div key={i.id}>{i.name}<br/></div>)}</div>
   )
 }
 

@@ -13,15 +13,17 @@ class ContactsController extends Controller
     
 
 
-    public function index(){
-        $contacts = Contact::all();
+    public function index($user_id){
+        $contacts = Contact::all()->where('user_id', '=', $user_id)->values();
         return response()->json($contacts);
     }
 
     public function create(Request $request){
         $contact=Contact::create([
-            'name'=> $request ->name,
-            'tel' => $request ->tel
+            'user_id'=> $request ->user_id,
+            'name'=>    $request ->name,
+            'tel' =>    $request ->tel
+            
         ]);
         return response()->json($contact);
     }
