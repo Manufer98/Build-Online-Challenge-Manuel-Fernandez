@@ -15,9 +15,9 @@ use App\Http\Controllers\ContactsController;
 |
 */
 
-/* Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
-}); */
+});
 
 Route::get('/contacts/{user_id}', 'App\Http\Controllers\ContactsController@index');
 Route::post('/contact/create','App\Http\Controllers\ContactsController@create');
