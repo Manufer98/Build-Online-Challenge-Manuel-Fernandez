@@ -22,7 +22,12 @@ class ContactsController extends Controller
         $contact=Contact::create([
             'user_id'=> $request ->user_id,
             'name'=>    $request ->name,
-            'tel' =>    $request ->tel
+            'title' =>    $request ->title,
+            'profilePic' =>    $request ->profilePic,
+            'address' =>    $request ->address,
+            'phone' =>    $request ->phone,
+            'email' =>    $request ->email,
+
             
         ]);
         return response()->json($contact);
@@ -36,7 +41,11 @@ class ContactsController extends Controller
     public function update(Request $request,$id){
         $contact=Contact::findOrFail($id)->update([
             'name'=> $request -> name,
-            'tel' => $request -> tel
+            'title' =>    $request ->title,
+            'profilePic' =>    $request ->profilePic,
+            'address' =>    $request ->address,
+            'phone' =>    $request ->phone,
+            'email' =>    $request ->email,
         ]);
         return $contact;
     }

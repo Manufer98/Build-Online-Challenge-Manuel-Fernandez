@@ -16,7 +16,8 @@ module.exports = {
       indigo: colors.indigo,
       yellow: colors.yellow,
       blue:colors.blue,
-      red:colors.red
+      red:colors.red,
+      'pink':'#FBEEFF'
       
     },
     extend: {

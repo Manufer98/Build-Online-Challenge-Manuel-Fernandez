@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('tel');
+            $table->string('title');
+            $table->string('profilePic');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('email');
             $table->timestamps();
             /* $table->unsignedBigInteger('user_id'); */
             $table->foreignId('user_id')

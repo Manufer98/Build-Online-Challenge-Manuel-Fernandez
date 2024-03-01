@@ -11,5 +11,5 @@ class Contact extends Model
     public function usuarios(){
         return $this->belongsTo(User::class,'user_id');
     }
-    protected $fillable = ['user_id','name','tel'];
+    protected $fillable = ['user_id','name','title','profilePic','address','phone','email'];
 }
