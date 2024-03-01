@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
+    
+
     public function usuarios(){
         return $this->belongsTo(User::class,'user_id');
     }

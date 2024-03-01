@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -20,9 +21,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->timestamps();
-            /* $table->unsignedBigInteger('user_id'); */
-            $table->foreignId('user_id')
-                  ->constrained('users');
+            $table->foreignUuid('user_id')->constrained(); 
         });
     }
 
