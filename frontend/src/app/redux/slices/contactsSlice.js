@@ -1,18 +1,20 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-const initialState=[
-    {id:1, name:'manu',tel:'12321'},
-    {id:2, name:'manu',tel:'12321'}
-];
+
 
 const contactsSlice=createSlice({
     name:'contacts',
-    initialState,
+    initialState:{
+		contacts:[],
+		
+	},
     reducers:{
+        InitalContacts:(state, action)=>{
+			state.contacts = [...action.payload]},
 
     }
 })
 
-//export const { AddTop5Redux, ReorderTop5Redux, currArtist, changeStatus } = top5Slice.actions;
+export const { InitalContacts } = contactsSlice.actions;
 
 export default contactsSlice.reducer;
