@@ -5,12 +5,14 @@ import { useFormik } from 'formik';
 import { addContactSchema } from '@/app/auth/schema/yup';
 import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
- const [roundedPic,setRoundedPic]=useState('');
+  const [roundedPic, setRoundedPic] = useState('');
+  const { push } = useRouter();
 
   const onSubmit = async (values, actions) => {
-  
+
 
 
     const contact = {
@@ -23,33 +25,20 @@ const page = () => {
       email: values.email
     }
 
-    console.log(contact)
-    /* const config = useRuntimeConfig() */
-
-    /* const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content; */
-
-    fetch('http://127.0.0.1:8000/api/contact/create', {  // Enter your IP address here
+    fetch('http://127.0.0.1:8000/api/contact/create', {
 
       method: 'POST',
       headers: {
-        /* 'X-XSRF-TOKEN': csrfToken, */
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      body: JSON.stringify(contact) // body data type must match "Content-Type" header
+      body: JSON.stringify(contact)
 
     }).then((response) => {
       console.log(response)
+      push('/dashboard')
     });
-
-
-
-    /* axios.post('http://127.0.0.1:8000/api/contact/create',{
-     body:contact,
-     }).then((response) => {
-       console.log(response)
-     }); */
 
 
   };
@@ -89,19 +78,19 @@ const page = () => {
 
 
       </div>
-     
 
-     
+
+
       <div className='flex items-center justify-center pt-5'>
-          <div className=' w-3/4 h-40 flex flex-col items-center justify-center pt-48  bg-gray-200 w-50 h-50 rounded-lg relative'>
+        <div className=' w-3/4 h-40 flex flex-col items-center justify-center pt-48  bg-gray-200 w-50 h-50 rounded-lg relative'>
 
-            <img className="shadow rounded-full w-24 h-24 border-solid border-2 border-black" src="https://img.freepik.com/foto-gratis/resumen-superficie-texturas-muro-piedra-hormigon-blanco_74190-8189.jpg?w=1380&t=st=1709500774~exp=1709501374~hmac=e38ad90d11b1ebb02eb0b8ee5183b0cfc4908fb20f84db5a823eece14e67d307" alt="..." />
-            <h2 className='text-xl font-bold'></h2>
-            <h2 className='text-gray-400'></h2>
-          </div>
-
+          <img className="shadow rounded-full w-24 h-24 border-solid border-2 border-black" src="https://img.freepik.com/foto-gratis/resumen-superficie-texturas-muro-piedra-hormigon-blanco_74190-8189.jpg?w=1380&t=st=1709500774~exp=1709501374~hmac=e38ad90d11b1ebb02eb0b8ee5183b0cfc4908fb20f84db5a823eece14e67d307" alt="..." />
+          <h2 className='text-xl font-bold'></h2>
+          <h2 className='text-gray-400'></h2>
         </div>
-      
+
+      </div>
+
 
       <div className='flex items-center justify-center pt-32'>
 
@@ -142,7 +131,7 @@ const page = () => {
                 onBlur={handleBlur}
                 id="profilePic"
                 type="file"
-                 
+
                 className={errors.profilePic && touched.profilePic ? "w-50 border-2  bg-gray-200 appearance-none  border-red-500 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" : "w-50 bg-gray-200 appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"}
               />
               {errors.profilePic && touched.profilePic && <p className='text-red-500'>{errors.profilePic}</p>}
@@ -192,18 +181,18 @@ const page = () => {
             </div>
           </div>
           <div className=' w-full flex justify-center pt-5'>
-          <button
-            onSubmit={onSubmit}
-            className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3"
-          >
-            Save</button>
+            <button
+              onSubmit={onSubmit}
+              className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3"
+            >
+              Save</button>
             <Link
-                href='/dashboard'
-                className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3"
-              >
-                Cancel</Link>
+              href='/dashboard'
+              className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3"
+            >
+              Cancel</Link>
 
-            </div>
+          </div>
         </form>
 
       </div>

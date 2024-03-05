@@ -8,15 +8,10 @@ import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 const page = ({ params }) => {
-  //const object = JSON.parse(query.object);
-  const router = useRouter();
-
   const contactsRedux = useSelector((state) => state.contacts.contacts);
-  //console.log(contactsRedux,parseInt(params.id))
-
   const contacts = contactsRedux.filter(i => i.id === parseInt(params.id));
   const contact = contacts.reduce((acc, cur, i) => (acc = cur), {});
-
+  const { push } = useRouter();
 
 
   const onSubmit = async (values, actions) => {
@@ -32,33 +27,23 @@ const page = ({ params }) => {
       email: values.email
     }
 
-    //console.log(contact)
-    /* const config = useRuntimeConfig() */
 
-    /* const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content; */
 
-    fetch(`http://127.0.0.1:8000/api/contact/${params.id}/update`, {  // Enter your IP address here
+    fetch(`http://127.0.0.1:8000/api/contact/${params.id}/update`, {
 
       method: 'PUT',
       headers: {
-        /* 'X-XSRF-TOKEN': csrfToken, */
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       mode: 'cors',
-      body: JSON.stringify(contact) // body data type must match "Content-Type" header
+      body: JSON.stringify(contact)
 
     }).then((response) => {
       console.log(response)
+      push('/dashboard')
+
     });
-
-
-
-    /* axios.post('http://127.0.0.1:8000/api/contact/create',{
-     body:contact,
-     }).then((response) => {
-       console.log(response)
-     }); */
 
 
   };
@@ -84,17 +69,42 @@ const page = ({ params }) => {
     validationSchema: addContactSchema,
     onSubmit,
   });
+
+  const handleDelete = () => {
+
+    fetch(`http://127.0.0.1:8000/api/contact/${params.id}/delete`, {  // Enter your IP address here
+
+      method: 'DELETE',
+      headers: {
+
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+
+    }).then((response) => {
+      console.log(response)
+      push('/dashboard')
+    });
+  }
+
   return (
     <div>
 
       <div className='h-screen bg-secondary'>
-        <div className='bg-pink h-16 flex'>
+        <div className='bg-pink h-16 flex justify-between'>
           <Link href='/dashboard' type="button" className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200    gap-x-2 sm:w-auto ">
             <svg className="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
             </svg>
             <span>Back</span>
           </Link>
+          <button
+            onClick={handleDelete}
+            className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3 "
+          >
+            Delete</button>
+
 
 
         </div>
@@ -113,7 +123,7 @@ const page = ({ params }) => {
         <div className='flex items-center justify-center pt-32 '>
 
           <form onSubmit={handleSubmit} className='flex flex-row flex-wrap items-center justify-center  border-dashed border-red-500'>
-            
+
             <div className='basis-2/4 flex flex-col items-center justify-center'>
               <div>
                 <h5 className='font-medium'>Name</h5>

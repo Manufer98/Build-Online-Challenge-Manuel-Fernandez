@@ -17,14 +17,10 @@ const page = () => {
 
 
   const getData = async () => {
-    console.log('dsa')
     const contactsApi = await fetch('http://127.0.0.1:8000/api/contacts/acf0339c-d81f-11ee-ac18-e88088f6de04')
       .then(res => res.json())
       .then(data => {
-
-
         dispatch(InitalContacts(data));
-
         setContactsAp(data);
         setLoading(false);
         if (data.length === 0) {
@@ -37,13 +33,12 @@ const page = () => {
       });
   }
 
-  console.log(contactsRedux)
   return (
 
     <div className='h-screen bg-secondary'>
-      <form className=" mx-auto p-10">
-        <div className='flex '>
-          <h1 className='text-2xl font-bold mb-5'>Contacts</h1>
+      <form className=" p-10">
+        <div className='flex justify-between items-center '>
+          <h1 className='text-2xl font-bold '>Contacts</h1>
           <Link className="bg-primary hover:bg-blue-700 text-white font-bold py-2  px-12 rounded-full m-3" href='contacts/add'>Add contact</Link>
         </div>
         <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -54,7 +49,7 @@ const page = () => {
             </svg>
           </div>
           <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-          <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+          <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
       </form>
       {loading &&
@@ -76,8 +71,9 @@ const page = () => {
               <h4 className='text-gray-400'>Title</h4>
 
             </div>
-            <Link href={`contacts/edit/${i.id}`} onClick={() => console.log(i.address)} className='relative'>
-              <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5 fill-none stroke-gray-400 stroke-2 pl-2 z-0 ' strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+            <Link href={`contacts/edit/${i.id}`}  className='relative'>
+              <svg xmlns="http://www.w3.org/2000/svg" className='w-5 h-5 fill-none stroke-gray-400 stroke-2 pl-1 z-0 ' strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+
             </Link>
           </div>
 
